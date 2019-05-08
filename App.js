@@ -2,8 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Constants, Font } from 'expo'
 
-import { Calendar } from './src/components'
-
 const styles = StyleSheet.create({
   statusBar: {
     backgroundColor: '#C2185B',
@@ -43,15 +41,10 @@ export default class App extends React.Component {
   render() {
     const { isLoading } = this.state
 
-    return isLoading ? (
-      <View>
-        <Text>Loading</Text>
-      </View>
-    ) : (
+    return (
       <View>
         <View style={styles.statusBar} />
-
-        <Calendar />
+        {isLoading ? <Text>Loading</Text> : <Text>OK</Text>}
       </View>
     )
   }
