@@ -44,7 +44,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   heatPoint: {
-    backgroundColor: '#B71C1C',
     width: '60%',
     aspectRatio: 1,
     marginLeft: 'auto',
@@ -52,44 +51,31 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 999,
   },
-  dayOfMonth: {
-    color: '#FFF',
-  },
 })
 
-export const dayStyles = StyleSheet.create({
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-    marginTop: 6,
-    paddingLeft: 12,
-    paddingRight: 12,
+export const heatMapStyles = StyleSheet.create({
+  point1: {
+    backgroundColor: 'transparent',
   },
-  title: {
-    textAlign: 'center',
+  text1: {
+    color: '#212121',
   },
-  row: {
-    flexDirection: 'row',
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingTop: 6,
-    paddingBottom: 6,
+  point2: {
+    backgroundColor: '#EF9A9A',
   },
-  label: {
-    color: '#9E9E9E',
-    flex: 0.4,
+  text2: {
+    color: '#FFF',
   },
-  value: {
-    flexDirection: 'row',
-    flex: 0.6,
-    justifyContent: 'flex-end',
+  point3: {
+    backgroundColor: '#F44336',
   },
-  change: {
-    color: '#4caf50',
+  text3: {
+    color: '#FFF',
   },
-  valueText: {
-    marginLeft: 6,
+  point4: {
+    backgroundColor: '#B71C1C',
+  },
+  text4: {
+    color: '#FFF',
   },
 })
