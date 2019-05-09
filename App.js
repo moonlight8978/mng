@@ -1,5 +1,6 @@
 import React from 'react'
 
+import './src/locales'
 import Bootstrap from './src/bootstrap'
 import { DbProvider } from './src/db'
 

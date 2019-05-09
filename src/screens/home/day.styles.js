@@ -7,16 +7,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
     marginTop: 6,
-    paddingLeft: 12,
-    paddingRight: 12,
   },
   title: {
     textAlign: 'center',
   },
   row: {
     flexDirection: 'row',
-    paddingLeft: 12,
-    paddingRight: 12,
     paddingTop: 6,
     paddingBottom: 6,
   },

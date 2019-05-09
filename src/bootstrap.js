@@ -1,14 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native'
-import { Constants, Font } from 'expo'
+import { Font } from 'expo'
 
-import { HomeScreen } from './screens'
 import { withDb } from './db'
+import MNG from './routes'
 
 const styles = StyleSheet.create({
-  statusBar: {
-    backgroundColor: '#C2185B',
-    height: Constants.statusBarHeight,
+  container: {
+    flex: 1,
   },
 })
 
@@ -48,9 +47,8 @@ class Bootstrap extends React.Component {
     const { isLoading } = this.state
 
     return (
-      <View>
-        <View style={styles.statusBar} />
-        {isLoading ? <Text>Loading</Text> : <HomeScreen />}
+      <View style={styles.container}>
+        {isLoading ? <Text>Loading</Text> : <MNG />}
       </View>
     )
   }

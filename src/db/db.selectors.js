@@ -8,7 +8,7 @@ const findDate = date => dates => dates[date] || { data: [], total: 0 }
 const calculateMonthTotal = ({ month, year }) => state => {
   const monthDb = findMonth(state)
   const spentMoneyInMonth = Object.values(monthDb).reduce(
-    (total, db) => total + db.data,
+    (total, db) => total + db.total,
     0
   )
   return spentMoneyInMonth

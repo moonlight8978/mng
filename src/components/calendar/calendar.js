@@ -125,13 +125,13 @@ class Calendar extends React.PureComponent {
   getHeatMapPointLevel = date => {
     const { heatMap } = this.props
     const value = heatMap[date]
-    if (!value || value <= 0.25) {
+    if (!value || value <= 25) {
       return 1
     }
-    if (value <= 0.5) {
+    if (value <= 50) {
       return 2
     }
-    if (value <= 0.75) {
+    if (value <= 75) {
       return 3
     }
     return 4
@@ -141,7 +141,7 @@ class Calendar extends React.PureComponent {
     const { dateList, month, year } = this.state
 
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.calendarHeader}>
           <HeaderArrow
             direction="left"

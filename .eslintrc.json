@@ -1,10 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "env": {
     "jest": true
   },
@@ -29,6 +25,7 @@
     "react/no-multi-comp": "off",
     "react/prefer-stateless-function": "off",
     "react/prop-types": "off",
+    "react/jsx-wrap-multilines": "off",
     "react/sort-comp": [
       "error",
       {

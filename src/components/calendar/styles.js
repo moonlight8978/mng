@@ -10,10 +10,6 @@ export const headerStyles = StyleSheet.create({
 })
 
 export const styles = StyleSheet.create({
-  layout: {
-    backgroundColor: '#FFF',
-    flex: 1,
-  },
   calendarHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -25,20 +21,18 @@ export const styles = StyleSheet.create({
   calendarRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingLeft: 6,
-    paddingRight: 6,
   },
   rowInner: {
-    paddingLeft: 6,
-    paddingRight: 6,
+    paddingLeft: 3,
+    paddingRight: 3,
   },
   dayOfWeek: {
     color: '#9E9E9E',
   },
   calendarCol: {
     width: '14.285714286%',
-    paddingTop: 12,
-    paddingBottom: 12,
+    paddingTop: 3,
+    paddingBottom: 3,
   },
   colText: {
     textAlign: 'center',
