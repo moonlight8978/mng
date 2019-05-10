@@ -2,6 +2,7 @@ import React from 'react'
 import { AsyncStorage } from 'react-native'
 
 import selectors from './db.selectors'
+import { withToast } from '../components/toast'
 
 const DbContext = React.createContext({})
 
@@ -12,13 +13,40 @@ class DbProvider extends React.PureComponent {
 
   setDb = db => this.setState({ db })
 
-  update = ({ month, year, date }) => {
-    this.setState(
-      state => ({ db: { ...state.db } }),
-      () => {
-        AsyncStorage.setItem('db', JSON.stringify(this.state.db))
+  add = (date, payment) => {
+    return new Promise(resolve => {
+      this.setState(
+        state => ({ db: selectors.add(date, payment)(state.db) }),
+        async () => {
+          await this.persistState()
+          resolve()
+        }
+      )
+    })
+  }
+
+  update = () => {}
+
+  tryPersistState = async () => {
+    for (let triesCount = 1; triesCount <= 5; triesCount += 1) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await AsyncStorage.setItem('db', JSON.stringify(this.state.db))
+        return null
+      } catch (error) {
+        if (triesCount === 5) {
+          throw error
+        }
       }
-    )
+    }
+  }
+
+  persistState = async () => {
+    try {
+      await this.tryPersistState()
+    } catch (error) {
+      this.props.toast.push({ message: error.message })
+    }
   }
 
   render() {
@@ -28,14 +56,17 @@ class DbProvider extends React.PureComponent {
         value={{
           ...this.state,
           setDb: this.setDb,
-          update: this.update,
+          updatePayment: this.update,
           dbSelectors: selectors,
+          addPayment: this.add,
         }}
       />
     )
   }
 }
 
-export { DbProvider }
+const DbProviderWithToast = withToast(DbProvider)
+
+export { DbProviderWithToast as DbProvider }
 
 export const DbConsumer = DbContext.Consumer

@@ -19,12 +19,17 @@ const schema = object().shape({
 })
 
 class FormAddPayment extends React.Component {
+  handleSubmit = async values => {
+    const { targetDate, addPayment } = this.props
+    await addPayment(targetDate, values)
+  }
+
   render() {
     const { formRef } = this.props
 
     return (
       <View>
-        <ZForm schema={schema} ref={formRef}>
+        <ZForm schema={schema} ref={formRef} onSubmit={this.handleSubmit}>
           {({ values, handleChange, errors, touched }) => {
             return (
               <React.Fragment>

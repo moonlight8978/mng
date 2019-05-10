@@ -6,6 +6,7 @@ const palette = {
   red: ['#ef9a9a', '#f44336', '#b71c1c'],
   transparent: 'transparent',
   cyan: '#48aae6',
+  green: '#4caf50',
 }
 
 export default palette

@@ -4,6 +4,7 @@ import { Font } from 'expo'
 
 import { withDb } from './db'
 import MNG from './routes'
+import { withToast } from './components/toast'
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +40,7 @@ class Bootstrap extends React.Component {
       this.props.setDb(db ? JSON.parse(db) : {})
       this.setState({ isLoading: false })
     } catch (error) {
-      console.log(error.message)
+      this.props.toast.push({ message: error.message })
     }
   }
 
@@ -54,4 +55,4 @@ class Bootstrap extends React.Component {
   }
 }
 
-export default withDb(Bootstrap)
+export default withToast(withDb(Bootstrap))

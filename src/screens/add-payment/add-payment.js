@@ -37,8 +37,9 @@ class AddPayment extends React.Component {
             color={palette.white}
           />
         }
-        onPress={() => {
-          navigation.getParam('submitForm')()
+        onPress={async () => {
+          await navigation.getParam('submitForm')()
+          navigation.goBack()
         }}
       />
     ),
@@ -53,10 +54,12 @@ class AddPayment extends React.Component {
   formRef = React.createRef()
 
   render() {
+    const targetDate = this.props.navigation.getParam('targetDate')
+
     return (
       <Layout>
         <ZBox style={styles.container}>
-          <FormAddPayment formRef={this.formRef} />
+          <FormAddPayment targetDate={targetDate} formRef={this.formRef} />
         </ZBox>
       </Layout>
     )
