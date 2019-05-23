@@ -1,7 +1,7 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, BackHandler } from 'react-native'
 
-import { ZText } from '../../components/atomics'
+import { ZText, ZButton } from '../../components/atomics'
 import { DrawerToggler } from '../../components/navigation'
 import { palette } from '../../config'
 
@@ -14,6 +14,9 @@ class Categories extends React.PureComponent {
     return (
       <View>
         <ZText>Categories screen</ZText>
+        <ZButton onPress={() => BackHandler.exitApp()}>
+          <ZText>asdasd</ZText>
+        </ZButton>
       </View>
     )
   }

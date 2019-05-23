@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native'
-import { Font } from 'expo'
+import { Font, Asset } from 'expo'
 
 import { withDb } from './db'
 import MNG from './routes'
@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
 })
 
 function loadFonts() {
-  /* eslint-disable global-require */
   return Font.loadAsync({
     'OpenSans-Bold': require('../assets/fonts/OpenSans/OpenSans-Bold.ttf'),
     'OpenSans-BoldItalic': require('../assets/fonts/OpenSans/OpenSans-BoldItalic.ttf'),
@@ -28,6 +27,12 @@ function loadFonts() {
   })
 }
 
+function loadImages() {
+  return Asset.fromModule(
+    require('../assets/drawer-header.png')
+  ).downloadAsync()
+}
+
 class Bootstrap extends React.Component {
   state = {
     isLoading: true,
@@ -35,7 +40,7 @@ class Bootstrap extends React.Component {
 
   async componentDidMount() {
     try {
-      await loadFonts()
+      await Promise.all([loadFonts(), loadImages()])
       const db = await AsyncStorage.getItem('db')
       this.props.setDb(db ? JSON.parse(db) : {})
       this.setState({ isLoading: false })
