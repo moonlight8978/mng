@@ -8,6 +8,7 @@
     "arrow-body-style": "off",
     "comma-dangle": ["error", "always-multiline"],
     "consistent-return": "off",
+    "global-require": "off",
     "no-unused-vars": [
       "error",
       {
