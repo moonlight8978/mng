@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import Day from './day'
 import { Calendar, Layout } from '../../components'
 import { ZBox } from '../../components/atomics'
-import { HeaderRightIcon } from '../../components/navigation'
+import { HeaderRightIcon, DrawerToggler } from '../../components/navigation'
 import { DbConsumer } from '../../db'
 import { CalendarHeatMap, DateStruct } from '../../resources'
 import { palette } from '../../config'
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 
 class Home extends React.PureComponent {
   static navigationOptions = ({ navigation }) => ({
+    headerLeft: <DrawerToggler color={palette.white} />,
     headerRight: (
       <HeaderRightIcon
         icon={<MaterialIcons name="add" size={28} color={palette.white} />}

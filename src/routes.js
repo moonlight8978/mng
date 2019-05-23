@@ -1,33 +1,56 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation'
-import i18n from 'i18n-js'
+import {
+  createStackNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+} from 'react-navigation'
 
-import { HomeScreen, AddPaymentScreen } from './screens'
+import {
+  HomeScreen,
+  AddPaymentScreen,
+  CategoriesScreen,
+  AddCategoryScreen,
+} from './screens'
 import { palette } from './config'
 
-const AppNavigator = createStackNavigator(
+const stackNavigationStyle = {
+  headerStyle: {
+    backgroundColor: palette.cyan,
+  },
+  headerTintColor: palette.white,
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+}
+
+const PaymentsNavigator = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        title: i18n.t('home.title'),
-      },
-    },
-    AddPayment: {
-      screen: AddPaymentScreen,
-    },
+    Home: HomeScreen,
+    AddPayment: AddPaymentScreen,
   },
   {
     initialRouteName: 'Home',
-    /* The header config from HomeScreen is now here */
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: palette.cyan,
-      },
-      headerTintColor: palette.white,
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    },
+    defaultNavigationOptions: stackNavigationStyle,
+  }
+)
+
+const CategoriesNavigator = createStackNavigator(
+  {
+    Categories: CategoriesScreen,
+    AddCategory: AddCategoryScreen,
+  },
+  {
+    initialRouteName: 'Categories',
+    defaultNavigationOptions: stackNavigationStyle,
+  }
+)
+
+const AppNavigator = createDrawerNavigator(
+  {
+    Payments: PaymentsNavigator,
+    Categories: CategoriesNavigator,
+  },
+  {
+    initialRouteName: 'Payments',
   }
 )
 
