@@ -32,8 +32,11 @@ const styles = StyleSheet.create({
     margin: 16,
     fontWeight: '600',
   },
-  header: {
-    height: 100,
+  headerImage: {
+    height: 125,
+  },
+  drawer: {
+    marginTop: -25,
   },
 })
 
@@ -44,35 +47,41 @@ const exitApp = () => {
   ])
 }
 
+const DrawerItem = ({ onPress, children }) => (
+  <TouchableNativeFeedback
+    onPress={onPress}
+    pressColor="rgba(0, 0, 0, .32)"
+    background={{ ...TouchableNativeFeedback.Ripple(), color: 1375731712 }}
+  >
+    {children}
+  </TouchableNativeFeedback>
+)
+
 const Drawer = props => (
   <ScrollView contentContainerStyle={styles.container}>
     <View>
       <View>
         <Image
           source={require('../../../assets/drawer-header.png')}
-          style={{ height: 125 }}
+          style={styles.headerImage}
         />
       </View>
       <SafeAreaView
         forceInset={{ top: 'always', horizontal: 'never' }}
-        style={{ marginTop: -25 }}
+        style={styles.drawer}
       >
         <DrawerItems {...props} />
       </SafeAreaView>
     </View>
 
-    <TouchableNativeFeedback
-      onPress={exitApp}
-      pressColor="rgba(0, 0, 0, .32)"
-      background={{ ...TouchableNativeFeedback.Ripple(), color: 1375731712 }}
-    >
+    <DrawerItem onPress={exitApp}>
       <View style={styles.exitButton}>
         <View style={styles.iconContainer}>
           <MaterialIcons name="close" style={styles.icon} size={24} />
         </View>
         <Text style={styles.label}>Close app</Text>
       </View>
-    </TouchableNativeFeedback>
+    </DrawerItem>
   </ScrollView>
 )
 
