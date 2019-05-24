@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
+import i18n from 'i18n-js'
 
 import Day from './day'
 import { Calendar, Layout } from '../../components'
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
 
 class Home extends React.PureComponent {
   static navigationOptions = ({ navigation }) => ({
+    title: i18n.t('home.title'),
     headerLeft: <DrawerToggler color={palette.white} />,
     headerRight: (
       <HeaderRightIcon
@@ -78,7 +80,7 @@ class Home extends React.PureComponent {
         </ZBox>
 
         <ZBox style={styles.day}>
-          <Day date={selectedDate} />
+          <Day targetDate={selectedDate} />
         </ZBox>
       </Layout>
     )

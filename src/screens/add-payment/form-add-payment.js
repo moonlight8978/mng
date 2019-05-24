@@ -2,7 +2,12 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { object, string } from 'yup'
 
-import { ZInput, ZForm, ZValidationMessage } from '../../components/atomics'
+import {
+  ZInput,
+  ZForm,
+  ZValidationMessage,
+  ZPicker,
+} from '../../components/atomics'
 import { withDb } from '../../db'
 
 const styles = StyleSheet.create({
@@ -16,6 +21,7 @@ const schema = object().shape({
   price: string()
     .required('price is required')
     .matches(/\d+/, { message: 'price is not invalid' }),
+  category: string().required('category is required'),
 })
 
 class FormAddPayment extends React.Component {
@@ -34,10 +40,24 @@ class FormAddPayment extends React.Component {
             return (
               <React.Fragment>
                 <View style={styles.input}>
+                  <ZPicker
+                    label="Category"
+                    value={values.category}
+                    onValueChange={handleChange('category')}
+                    items={[
+                      { label: 'Shopping', value: 'shopping' },
+                      { label: 'Game', value: 'game' },
+                    ]}
+                    required
+                  />
+                </View>
+
+                <View style={styles.input}>
                   <ZInput
                     label="Purpose"
                     value={values.purpose}
                     onChangeText={handleChange('purpose')}
+                    required
                   />
                   {touched.purpose && errors.purpose && (
                     <ZValidationMessage message={errors.purpose} type="error" />
@@ -49,6 +69,7 @@ class FormAddPayment extends React.Component {
                     label="Price"
                     value={values.price}
                     onChangeText={handleChange('price')}
+                    required
                   />
                   {touched.price && errors.price && (
                     <ZValidationMessage message={errors.price} type="error" />

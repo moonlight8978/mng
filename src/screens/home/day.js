@@ -1,35 +1,41 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
+import { withNavigation } from 'react-navigation'
 
 import { ZText } from '../../components/atomics'
 
 import { styles } from './day.styles'
 import { withDb } from '../../db'
 import { DateList } from '../../components/calendar'
+import db from '../../db/db.sample'
 
 class Day extends React.PureComponent {
+  goToDetailScreen = () => {
+    const { navigation, targetDate } = this.props
+    navigation.navigate('DatePayments', { targetDate })
+  }
+
   render() {
-    const { date, db, dbSelectors } = this.props
-    const monthDb = dbSelectors.findMonth(date)(db)
-    const dateDb = dbSelectors.findDate(date.date)(monthDb)
-    const totalSpentInMonth = dbSelectors.calculateMonthTotal(date)(db)
-    const numberOfDates = DateList.getNumberOfDates(date)
+    const { targetDate, dbSelectors } = this.props
+    const dateDb = dbSelectors.findDate(targetDate)(db)
+    const totalSpentInMonth = dbSelectors.calculateMonthTotal(targetDate)(db)
+    const numberOfDates = DateList.getNumberOfDates(targetDate)
     const average = Math.round(totalSpentInMonth / numberOfDates)
     const change = Math.abs(totalSpentInMonth - average)
     const changeSign = totalSpentInMonth <= average ? '+' : '-'
     const changePercentage =
       average && Math.round(totalSpentInMonth / average) * 100
     const datePercentage =
-      totalSpentInMonth && Math.round(dateDb.total / totalSpentInMonth) * 100
+      totalSpentInMonth && Math.round((dateDb.total * 100) / totalSpentInMonth)
 
     return (
       <View>
         <View style={styles.titleRow}>
           <ZText style={styles.title} size="xxlarge">
-            {`${date.year}-${date.month}-${date.date}`}
+            {`${targetDate.year}-${targetDate.month}-${targetDate.date}`}
           </ZText>
 
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={this.goToDetailScreen}>
             <ZText>Show more</ZText>
           </TouchableOpacity>
         </View>
@@ -77,4 +83,4 @@ class Day extends React.PureComponent {
   }
 }
 
-export default withDb(Day)
+export default withNavigation(withDb(Day))

@@ -36,16 +36,21 @@ const sizeStyles = StyleSheet.create({
   },
 })
 
-function ZText({ children, style, size, weight }) {
+function ZText({ children, style, size, weight, numberOfLines }) {
   const sizeStyle = sizeStyles[size]
   const weightStyle = weightStyles[weight]
 
-  return <Text style={[weightStyle, sizeStyle, style]}>{children}</Text>
+  return (
+    <Text style={[weightStyle, sizeStyle, style]} numberOfLines={numberOfLines}>
+      {children}
+    </Text>
+  )
 }
 
 ZText.defaultProps = {
   weight: 'normal',
   size: 'normal',
+  numberOfLines: 1,
 }
 
 export default ZText

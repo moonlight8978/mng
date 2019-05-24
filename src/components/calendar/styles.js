@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { palette } from '../../config'
 
 export const headerStyles = StyleSheet.create({
   icon: {
@@ -44,6 +45,10 @@ export const styles = StyleSheet.create({
     marginRight: 'auto',
     justifyContent: 'center',
     borderRadius: 999,
+  },
+  selectedDate: {
+    borderColor: palette.green,
+    borderWidth: 1,
   },
 })
 
