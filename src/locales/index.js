@@ -2,6 +2,7 @@ import { Localization } from 'expo'
 import i18n from 'i18n-js'
 
 import calendar from './calendar'
+import category from './category'
 
 const en = {
   home: {
@@ -13,6 +14,7 @@ const en = {
     },
   },
   calendar: calendar.en,
+  category: category.en,
 }
 
 const vi = {
@@ -20,6 +22,7 @@ const vi = {
     title: 'Home',
   },
   calendar: calendar.vi,
+  category: category.vi,
 }
 
 i18n.fallbacks = true

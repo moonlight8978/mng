@@ -71,7 +71,7 @@ const AppNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Payments',
+    initialRouteName: 'Categories',
     contentOptions: {
       activeTintColor: palette.cyan,
       inactiveTintColor: palette.black,
