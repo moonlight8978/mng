@@ -2,6 +2,7 @@ import React from 'react'
 import { View, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import _ from 'lodash'
+import i18n from 'i18n-js'
 
 import { ZText } from '../atomics'
 import DateStruct from '../../resources/date'
@@ -10,23 +11,6 @@ import { styles, headerStyles, heatMapStyles } from './styles'
 import DateList from './date-list'
 
 const noop = () => {}
-
-const monthInWord = new Map([
-  [1, 'Jan'],
-  [2, 'Feb'],
-  [3, 'Mar'],
-  [4, 'Apr'],
-  [5, 'May'],
-  [6, 'Jun'],
-  [7, 'Jul'],
-  [8, 'Aug'],
-  [9, 'Sep'],
-  [10, 'Oct'],
-  [11, 'Nov'],
-  [12, 'Dec'],
-])
-
-const dayOfWeekInWord = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 const heatMapStyle = new Map([
   [1, { point: heatMapStyles.point1, text: heatMapStyles.text1 }],
@@ -138,7 +122,7 @@ class Calendar extends React.PureComponent {
   }
 
   render() {
-    const { dateList, month, year } = this.state
+    const { dateList, month, year, date: selectedDate } = this.state
 
     return (
       <View style={styles.container}>
@@ -159,7 +143,7 @@ class Calendar extends React.PureComponent {
             direction="left"
             onPress={() => this.handleChangeMonth(-1)}
           />
-          <ZText size="large">{monthInWord.get(month)}</ZText>
+          <ZText size="large">{i18n.t(`calendar.months.long.${month}`)}</ZText>
           <HeaderArrow
             direction="right"
             onPress={() => this.handleChangeMonth(1)}
@@ -168,13 +152,13 @@ class Calendar extends React.PureComponent {
 
         <View>
           <View style={styles.calendarRow}>
-            {dayOfWeekInWord.map(dayOfWeek => (
+            {new Array(7).fill(0).map((_value, index) => (
               <ZText
                 style={[styles.calendarCol, styles.colText, styles.dayOfWeek]}
                 size="small"
-                key={dayOfWeek}
+                key={index.toString()}
               >
-                {dayOfWeek}
+                {i18n.t(`calendar.dayOfWeeks.${index + 1}`)}
               </ZText>
             ))}
           </View>
@@ -189,7 +173,12 @@ class Calendar extends React.PureComponent {
                   key={date}
                   onPress={() => this.handleDatePress(date)}
                 >
-                  <View style={styles.calendarCol}>
+                  <View
+                    style={[
+                      styles.calendarCol,
+                      date === selectedDate ? styles.selectedDate : null,
+                    ]}
+                  >
                     <View style={[styles.heatPoint, style.point]}>
                       <ZText style={[styles.colText, style.text]}>{date}</ZText>
                     </View>

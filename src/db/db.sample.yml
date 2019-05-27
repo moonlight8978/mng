@@ -1,0 +1,15 @@
+calendar:
+  year[string]:
+    month[string]:
+      day[string]:
+        payments: array[Payment]
+        total: integer
+payments[Payment]:
+  id[string]:
+    price: integer
+    purpose: string
+    category: Category
+categories[Category]:
+  id[string]:
+    name: string
+    icon: string (MaterialIcons)

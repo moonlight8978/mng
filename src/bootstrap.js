@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native'
-import { Font, Asset } from 'expo'
+import { StyleSheet, View, AsyncStorage } from 'react-native'
+import { Font, SplashScreen } from 'expo'
 
 import { withDb } from './db'
 import MNG from './routes'
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 })
 
 function loadFonts() {
+  /* eslint-disable global-require */
   return Font.loadAsync({
     'OpenSans-Bold': require('../assets/fonts/OpenSans/OpenSans-Bold.ttf'),
     'OpenSans-BoldItalic': require('../assets/fonts/OpenSans/OpenSans-BoldItalic.ttf'),
@@ -27,34 +28,39 @@ function loadFonts() {
   })
 }
 
-function loadImages() {
-  return Asset.fromModule(
-    require('../assets/drawer-header.png')
-  ).downloadAsync()
-}
-
 class Bootstrap extends React.Component {
   state = {
-    isLoading: true,
+    isReady: false,
+  }
+
+  constructor(props) {
+    super(props)
+
+    SplashScreen.preventAutoHide()
   }
 
   async componentDidMount() {
     try {
-      await Promise.all([loadFonts(), loadImages()])
+      await loadFonts()
       const db = await AsyncStorage.getItem('db')
       this.props.setDb(db ? JSON.parse(db) : {})
-      this.setState({ isLoading: false })
+      this.setState({ isReady: true })
+      SplashScreen.hide()
     } catch (error) {
       this.props.toast.push({ message: error.message })
     }
   }
 
   render() {
-    const { isLoading } = this.state
+    const { isReady } = this.state
+
+    if (!isReady) {
+      return null
+    }
 
     return (
       <View style={styles.container}>
-        {isLoading ? <Text>Loading</Text> : <MNG />}
+        <MNG />
       </View>
     )
   }

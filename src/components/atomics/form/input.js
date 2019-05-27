@@ -7,10 +7,9 @@ import { palette } from '../../../config'
 import ZText from '../text'
 import ZButton from '../button'
 
+import ZLabel from './label'
+
 const styles = StyleSheet.create({
-  label: {
-    color: palette.grey,
-  },
   container: {
     position: 'relative',
   },
@@ -86,6 +85,7 @@ class Input extends Component {
       onFocus,
       selectionColor,
       sensitive,
+      required,
       ...otherProps
     } = this.props
     /* eslint-enable no-unused-vars */
@@ -98,9 +98,7 @@ class Input extends Component {
 
     return (
       <View style={styles.container}>
-        <ZText size="small" style={[styles.label]}>
-          {label}
-        </ZText>
+        <ZLabel name={label} required={required} />
         <TextInput
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
@@ -131,6 +129,7 @@ class Input extends Component {
 
 Input.defaultProps = {
   sensitive: false,
+  required: false,
 }
 
 export default Input

@@ -13,10 +13,15 @@ class DbProvider extends React.PureComponent {
 
   setDb = db => this.setState({ db })
 
-  add = (date, payment) => {
+  addPayment = (date, payment) => {
     return new Promise(resolve => {
       this.setState(
-        state => ({ db: selectors.add(date, payment)(state.db) }),
+        state => ({
+          db: selectors.addPayment(date, {
+            ...payment,
+            id: this.generateUniqueId(),
+          })(state.db),
+        }),
         async () => {
           await this.persistState()
           resolve()
@@ -25,7 +30,7 @@ class DbProvider extends React.PureComponent {
     })
   }
 
-  update = () => {}
+  updatePayment = () => {}
 
   tryPersistState = async () => {
     for (let triesCount = 1; triesCount <= 5; triesCount += 1) {
@@ -45,8 +50,21 @@ class DbProvider extends React.PureComponent {
     try {
       await this.tryPersistState()
     } catch (error) {
-      this.props.toast.push({ message: error.message })
+      this.props.toast.push({ message: error.message.toString() })
     }
+  }
+
+  generateUniqueId = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function uuid(c) {
+        // eslint-disable-next-line no-bitwise
+        const r = (Math.random() * 16) | 0
+        // eslint-disable-next-line no-bitwise
+        const v = c === 'x' ? r : (r & 0x3) | 0x8
+        return v.toString(16)
+      }
+    )
   }
 
   render() {
@@ -56,9 +74,9 @@ class DbProvider extends React.PureComponent {
         value={{
           ...this.state,
           setDb: this.setDb,
-          updatePayment: this.update,
+          updatePayment: this.updatePayment,
           dbSelectors: selectors,
-          addPayment: this.add,
+          addPayment: this.addPayment,
         }}
       />
     )

@@ -11,6 +11,7 @@ import {
   AddPaymentScreen,
   CategoriesScreen,
   AddCategoryScreen,
+  DatePaymentsScreen,
 } from './screens'
 import { palette } from './config'
 import { Drawer } from './components/navigation'
@@ -29,6 +30,7 @@ const PaymentsNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     AddPayment: AddPaymentScreen,
+    DatePayments: DatePaymentsScreen,
   },
   {
     initialRouteName: 'Home',
