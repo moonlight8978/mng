@@ -8,7 +8,7 @@ import ZLabel from './label'
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 2,
-    borderColor: palette.grey,
+    borderColor: palette.gray,
   },
   picker: {
     marginLeft: -8,

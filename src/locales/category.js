@@ -1,7 +1,8 @@
 const category = {
   en: {
     list: {
-      screenTitle: 'Categories',
+      screenTitle: 'Category',
+      empty: 'No Items',
     },
   },
 }

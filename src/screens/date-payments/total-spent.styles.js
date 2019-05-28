@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
   },
   title: {
-    color: palette.grey,
+    color: palette.gray,
     marginBottom: 6,
   },
   priceWithUnit: {

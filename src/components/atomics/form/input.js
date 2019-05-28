@@ -4,7 +4,6 @@ import { FontAwesome } from '@expo/vector-icons'
 
 import { palette } from '../../../config'
 
-import ZText from '../text'
 import ZButton from '../button'
 
 import ZLabel from './label'
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   sensitiveIcon: {
-    color: palette.grey,
+    color: palette.gray,
   },
   border: {
     margin: 0,
@@ -92,7 +91,7 @@ class Input extends Component {
     const { focusTransition, isHidden } = this.state
     const borderColor = focusTransition.interpolate({
       inputRange: [0, 100],
-      outputRange: [palette.grey, palette.cyan],
+      outputRange: [palette.gray, palette.cyan],
     })
     const inputStyle = [styles.input, sensitive ? { paddingRight: 60 } : null]
 
@@ -103,7 +102,7 @@ class Input extends Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           style={inputStyle}
-          selectionColor={palette.grey}
+          selectionColor={palette.gray}
           ref={this.inputRef}
           secureTextEntry={sensitive ? isHidden : false}
           {...otherProps}

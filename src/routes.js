@@ -5,6 +5,7 @@ import {
   createDrawerNavigator,
 } from 'react-navigation'
 import { MaterialIcons } from '@expo/vector-icons'
+import i18n from 'i18n-js'
 
 import {
   HomeScreen,
@@ -54,7 +55,7 @@ const AppNavigator = createDrawerNavigator(
     Payments: {
       screen: PaymentsNavigator,
       navigationOptions: {
-        drawerLabel: 'Payments',
+        drawerLabel: i18n.t('drawer.payment'),
         drawerIcon: ({ tintColor }) => (
           <MaterialIcons color={tintColor} name="attach-money" size={24} />
         ),
@@ -63,7 +64,7 @@ const AppNavigator = createDrawerNavigator(
     Categories: {
       screen: CategoriesNavigator,
       navigationOptions: {
-        drawerLabel: 'Category',
+        drawerLabel: i18n.t('drawer.category'),
         drawerIcon: ({ tintColor }) => (
           <MaterialIcons color={tintColor} name="list" size={24} />
         ),
@@ -71,11 +72,11 @@ const AppNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Categories',
+    initialRouteName: 'Payments',
     contentOptions: {
       activeTintColor: palette.cyan,
       inactiveTintColor: palette.black,
-      activeBackgroundColor: palette.blueGrey,
+      activeBackgroundColor: palette.blueGray,
       iconContainerStyle: {
         opacity: 1,
       },

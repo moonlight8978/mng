@@ -1,45 +1,67 @@
 import React from 'react'
-import { View, BackHandler } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
+import i18n from 'i18n-js'
 
-import { ZText, ZButton } from '../../components/atomics'
-import { DrawerToggler } from '../../components/navigation'
+import { ZBox, ZText } from '../../components/atomics'
+import { DrawerToggler, HeaderRightIcon } from '../../components/navigation'
 import { palette } from '../../config'
+import { Layout } from '../../components/layout'
 
-const categories = [
-  { name: 'Shopping', iconName: 'shopping-cart', id: '1' },
-  { name: 'Shopping', iconName: 'shopping-cart', id: '2' },
-  { name: 'Shopping', iconName: 'shopping-cart', id: '3' },
-  { name: 'Shopping', iconName: 'shopping-cart', id: '4' },
-]
+import CategoryItem from './category-item'
+import { DbConsumer } from '../../db'
 
-class CategoryListItem extends React.PureComponent {
-  render() {
-    const { category } = this.props
-    const { name, iconName } = category
-
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        <MaterialIcons name={iconName} size={28} color={palette.cyan} />
-        <ZText>{name}</ZText>
-      </View>
-    )
-  }
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  empty: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+})
 
 class Categories extends React.PureComponent {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Category',
+    title: i18n.t('category.list.screenTitle'),
     headerLeft: <DrawerToggler color={palette.white} />,
+    headerRight: (
+      <HeaderRightIcon
+        icon={<MaterialIcons name="add" size={28} color={palette.white} />}
+        onPress={() => navigation.navigate('AddCategory')}
+      />
+    ),
   })
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        {categories.map(category => (
-          <CategoryListItem key={category.id} category={category} />
-        ))}
-      </View>
+      <Layout>
+        <DbConsumer>
+          {({ db, dbSelectors }) => {
+            const categories = dbSelectors.findCategories(db)
+
+            if (categories.length === 0) {
+              return (
+                <View style={styles.empty}>
+                  <MaterialIcons
+                    name="sentiment-dissatisfied"
+                    size={60}
+                    color={palette.gray}
+                  />
+                  <ZText size="xlarge">{i18n.t('category.list.empty')}</ZText>
+                </View>
+              )
+            }
+
+            return categories.map(category => (
+              <ZBox style={styles.container}>
+                <CategoryItem key={category.id} category={category} />
+              </ZBox>
+            ))
+          }}
+        </DbConsumer>
+      </Layout>
     )
   }
 }

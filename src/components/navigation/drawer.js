@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
+import i18n from 'i18n-js'
 
 import { palette } from '../../config'
 
@@ -41,10 +42,22 @@ const styles = StyleSheet.create({
 })
 
 const exitApp = () => {
-  Alert.alert('Exit app', 'Are you sure to exit the application?', [
-    { text: 'No', onPress: () => {}, style: 'cancel' },
-    { text: 'Yes', onPress: BackHandler.exitApp, style: 'default' },
-  ])
+  Alert.alert(
+    i18n.t('drawer.closeConfirm.title'),
+    i18n.t('drawer.closeConfirm.prompt'),
+    [
+      {
+        text: i18n.t('drawer.closeConfirm.cancel'),
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: i18n.t('drawer.closeConfirm.ok'),
+        onPress: BackHandler.exitApp,
+        style: 'default',
+      },
+    ]
+  )
 }
 
 const DrawerItem = ({ onPress, children }) => (
@@ -77,9 +90,13 @@ const Drawer = props => (
     <DrawerItem onPress={exitApp}>
       <View style={styles.exitButton}>
         <View style={styles.iconContainer}>
-          <MaterialIcons name="close" style={styles.icon} size={24} />
+          <MaterialIcons
+            name="power-settings-new"
+            style={styles.icon}
+            size={24}
+          />
         </View>
-        <Text style={styles.label}>Close app</Text>
+        <Text style={styles.label}>{i18n.t('drawer.closeApp')}</Text>
       </View>
     </DrawerItem>
   </ScrollView>

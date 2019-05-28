@@ -4,14 +4,20 @@ import { AsyncStorage } from 'react-native'
 import selectors from './db.selectors'
 import { withToast } from '../components/toast'
 
-const DbContext = React.createContext({})
+const defaultState = {
+  payments: {},
+  categories: {},
+  calendar: {},
+}
+
+const DbContext = React.createContext(defaultState)
 
 class DbProvider extends React.PureComponent {
   state = {
-    db: {},
+    db: defaultState,
   }
 
-  setDb = db => this.setState({ db })
+  setDb = db => this.setState(state => ({ db: { ...state.db, ...db } }))
 
   addPayment = (date, payment) => {
     return new Promise(resolve => {
