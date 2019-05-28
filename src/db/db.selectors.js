@@ -84,6 +84,8 @@ const calculateMonthTotal = ({ year, month }) => db => {
   )
 }
 
+const findCategories = db => Object.values(db.categories)
+
 export default {
   findCategory,
   findPayment,
@@ -91,4 +93,5 @@ export default {
   findMonth,
   addPayment,
   calculateMonthTotal,
+  findCategories,
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
 
@@ -79,9 +79,11 @@ class Home extends React.PureComponent {
           </DbConsumer>
         </ZBox>
 
-        <ZBox style={styles.day}>
-          <Day targetDate={selectedDate} />
-        </ZBox>
+        <ScrollView>
+          <ZBox style={styles.day}>
+            <Day targetDate={selectedDate} />
+          </ZBox>
+        </ScrollView>
       </Layout>
     )
   }

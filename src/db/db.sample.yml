@@ -6,10 +6,12 @@ calendar:
         total: integer
 payments[Payment]:
   id[string]:
+    id: string
     price: integer
     purpose: string
     category: Category
 categories[Category]:
   id[string]:
+    id: string
     name: string
-    icon: string (MaterialIcons)
+    iconName: string (MaterialIcons)

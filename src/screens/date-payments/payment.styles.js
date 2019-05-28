@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
   },
   category: {
-    color: palette.grey,
+    color: palette.gray,
   },
   priceContainer: {
     width: 90,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: palette.blueGrey,
+    backgroundColor: palette.blueGray,
     position: 'absolute',
     bottom: 0,
     right: 0,

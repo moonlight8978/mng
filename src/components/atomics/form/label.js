@@ -7,7 +7,7 @@ import ZText from '../text'
 
 const styles = StyleSheet.create({
   label: {
-    color: palette.grey,
+    color: palette.gray,
   },
   container: {
     flexDirection: 'row',
