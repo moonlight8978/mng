@@ -9,7 +9,6 @@ import { styles } from './total-spent.styles'
 
 function TotalSpent({ total }) {
   const [totalInteger] = NumberUtils.toLocaleString(total)
-  console.log(total.toLocaleString('vi'))
 
   return (
     <ZBox style={styles.container}>

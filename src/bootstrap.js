@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, AsyncStorage } from 'react-native'
 import { Font, SplashScreen } from 'expo'
+import Sentry from 'sentry-expo'
 
 import { withDb } from './db'
 import MNG from './routes'
@@ -47,6 +48,7 @@ class Bootstrap extends React.Component {
       this.setState({ isReady: true })
       SplashScreen.hide()
     } catch (error) {
+      Sentry.captureException(error)
       this.props.toast.push({ message: error.message })
     }
   }
