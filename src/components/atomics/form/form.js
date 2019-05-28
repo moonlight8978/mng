@@ -6,7 +6,7 @@ import { yupToFormErrors, validateYupSchema } from './formik'
 class Form extends React.PureComponent {
   state = {
     errors: {},
-    values: {},
+    values: this.props.initialValues || {},
     touched: {},
     isSubmitting: false,
   }

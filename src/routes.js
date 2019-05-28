@@ -4,7 +4,7 @@ import {
   createAppContainer,
   createDrawerNavigator,
 } from 'react-navigation'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
 
 import {
@@ -15,16 +15,13 @@ import {
   DatePaymentsScreen,
 } from './screens'
 import { palette } from './config'
-import { Drawer } from './components/navigation'
+import { Drawer, HeaderRightIcon, DrawerToggler } from './components/navigation'
 
 const stackNavigationStyle = {
   headerStyle: {
     backgroundColor: palette.cyan,
   },
   headerTintColor: palette.white,
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
 }
 
 const PaymentsNavigator = createStackNavigator(
@@ -41,11 +38,43 @@ const PaymentsNavigator = createStackNavigator(
 
 const CategoriesNavigator = createStackNavigator(
   {
-    Categories: CategoriesScreen,
-    AddCategory: AddCategoryScreen,
+    Categories: {
+      screen: CategoriesScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: i18n.t('category.list.screenTitle'),
+        headerLeft: <DrawerToggler color={palette.white} />,
+        headerRight: (
+          <HeaderRightIcon
+            icon={<MaterialIcons name="add" size={28} color={palette.white} />}
+            onPress={() => navigation.navigate('AddCategory')}
+          />
+        ),
+      }),
+    },
+    AddCategory: {
+      screen: AddCategoryScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: i18n.t('category.new.screenTitle'),
+        headerRight: (
+          <HeaderRightIcon
+            icon={
+              <MaterialCommunityIcons
+                name="check"
+                size={28}
+                color={palette.white}
+              />
+            }
+            onPress={async () => {
+              await navigation.getParam('submitForm')()
+              navigation.goBack()
+            }}
+          />
+        ),
+      }),
+    },
   },
   {
-    initialRouteName: 'Categories',
+    initialRouteName: 'AddCategory',
     defaultNavigationOptions: stackNavigationStyle,
   }
 )
@@ -72,7 +101,7 @@ const AppNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Payments',
+    initialRouteName: 'Categories',
     contentOptions: {
       activeTintColor: palette.cyan,
       inactiveTintColor: palette.black,
