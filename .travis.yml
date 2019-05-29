@@ -1,0 +1,23 @@
+git:
+  depth: false
+
+language: node_js
+
+node_js:
+  - '10.16.0'
+
+cache:
+  directories:
+    - $HOME/.cache/yarn
+    - node_modules
+
+install:
+  - yarn
+
+script:
+  - yarn test
+
+branches:
+  only:
+    - master
+    - /runci$/
