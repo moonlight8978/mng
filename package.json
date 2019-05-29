@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "test": "jest",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --no-cache"
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --no-cache",
+    "eslint": "eslint ."
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.1",
