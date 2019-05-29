@@ -1,10 +1,13 @@
-const category = {
-  en: {
-    list: {
-      screenTitle: 'Category',
-      empty: 'No Items',
-    },
+const en = {
+  list: {
+    screenTitle: 'Category',
+    empty: 'No Items',
+  },
+  new: {
+    screenTitle: 'New category',
   },
 }
 
-export default category
+const vi = {}
+
+export default { en, vi }

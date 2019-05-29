@@ -4,7 +4,6 @@ import { MaterialIcons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
 
 import { ZBox, ZText } from '../../components/atomics'
-import { DrawerToggler, HeaderRightIcon } from '../../components/navigation'
 import { palette } from '../../config'
 import { Layout } from '../../components/layout'
 
@@ -23,17 +22,6 @@ const styles = StyleSheet.create({
 })
 
 class Categories extends React.PureComponent {
-  static navigationOptions = ({ navigation }) => ({
-    title: i18n.t('category.list.screenTitle'),
-    headerLeft: <DrawerToggler color={palette.white} />,
-    headerRight: (
-      <HeaderRightIcon
-        icon={<MaterialIcons name="add" size={28} color={palette.white} />}
-        onPress={() => navigation.navigate('AddCategory')}
-      />
-    ),
-  })
-
   render() {
     return (
       <Layout>
@@ -54,11 +42,13 @@ class Categories extends React.PureComponent {
               )
             }
 
-            return categories.map(category => (
+            return (
               <ZBox style={styles.container}>
-                <CategoryItem key={category.id} category={category} />
+                {categories.map(category => (
+                  <CategoryItem key={category.id} category={category} />
+                ))}
               </ZBox>
-            ))
+            )
           }}
         </DbConsumer>
       </Layout>

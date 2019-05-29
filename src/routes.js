@@ -4,7 +4,7 @@ import {
   createAppContainer,
   createDrawerNavigator,
 } from 'react-navigation'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
 
 import {
@@ -15,23 +15,74 @@ import {
   DatePaymentsScreen,
 } from './screens'
 import { palette } from './config'
-import { Drawer } from './components/navigation'
+import { Drawer, HeaderRightIcon, DrawerToggler } from './components/navigation'
+import { DateStruct } from './resources'
 
 const stackNavigationStyle = {
   headerStyle: {
     backgroundColor: palette.cyan,
   },
   headerTintColor: palette.white,
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
 }
+
+const submitFormFromHeader = navigation => async () => {
+  await navigation.getParam('submitForm')()
+  navigation.goBack()
+}
+
+const addIcon = <MaterialIcons name="add" size={28} color={palette.white} />
+
+const checkIcon = (
+  <MaterialCommunityIcons name="check" size={28} color={palette.white} />
+)
 
 const PaymentsNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
-    AddPayment: AddPaymentScreen,
-    DatePayments: DatePaymentsScreen,
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: i18n.t('home.title'),
+        headerLeft: <DrawerToggler color={palette.white} />,
+        headerRight: (
+          <HeaderRightIcon
+            icon={addIcon}
+            onPress={() =>
+              navigation.navigate('AddPayment', {
+                targetDate: navigation.getParam('getSelectedDate')(),
+              })
+            }
+          />
+        ),
+      }),
+    },
+    AddPayment: {
+      screen: AddPaymentScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: DateStruct.toString(navigation.getParam('targetDate')),
+        headerRight: (
+          <HeaderRightIcon
+            icon={checkIcon}
+            onPress={submitFormFromHeader(navigation)}
+          />
+        ),
+      }),
+    },
+    DatePayments: {
+      screen: DatePaymentsScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: DateStruct.toString(navigation.getParam('targetDate')),
+        headerRight: (
+          <HeaderRightIcon
+            icon={addIcon}
+            onPress={() =>
+              navigation.navigate('AddPayment', {
+                targetDate: navigation.getParam('targetDate'),
+              })
+            }
+          />
+        ),
+      }),
+    },
   },
   {
     initialRouteName: 'Home',
@@ -41,8 +92,31 @@ const PaymentsNavigator = createStackNavigator(
 
 const CategoriesNavigator = createStackNavigator(
   {
-    Categories: CategoriesScreen,
-    AddCategory: AddCategoryScreen,
+    Categories: {
+      screen: CategoriesScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: i18n.t('category.list.screenTitle'),
+        headerLeft: <DrawerToggler color={palette.white} />,
+        headerRight: (
+          <HeaderRightIcon
+            icon={addIcon}
+            onPress={() => navigation.navigate('AddCategory')}
+          />
+        ),
+      }),
+    },
+    AddCategory: {
+      screen: AddCategoryScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: i18n.t('category.new.screenTitle'),
+        headerRight: (
+          <HeaderRightIcon
+            icon={checkIcon}
+            onPress={submitFormFromHeader(navigation)}
+          />
+        ),
+      }),
+    },
   },
   {
     initialRouteName: 'Categories',

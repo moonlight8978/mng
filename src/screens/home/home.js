@@ -1,15 +1,11 @@
 import React from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
-import i18n from 'i18n-js'
 
 import Day from './day'
 import { Calendar, Layout } from '../../components'
 import { ZBox } from '../../components/atomics'
-import { HeaderRightIcon, DrawerToggler } from '../../components/navigation'
 import { DbConsumer } from '../../db'
 import { CalendarHeatMap, DateStruct } from '../../resources'
-import { palette } from '../../config'
 
 const styles = StyleSheet.create({
   calendar: {
@@ -27,21 +23,6 @@ const styles = StyleSheet.create({
 })
 
 class Home extends React.PureComponent {
-  static navigationOptions = ({ navigation }) => ({
-    title: i18n.t('home.title'),
-    headerLeft: <DrawerToggler color={palette.white} />,
-    headerRight: (
-      <HeaderRightIcon
-        icon={<MaterialIcons name="add" size={28} color={palette.white} />}
-        onPress={() =>
-          navigation.navigate('AddPayment', {
-            targetDate: navigation.getParam('getSelectedDate')(),
-          })
-        }
-      />
-    ),
-  })
-
   state = {
     selectedDate: DateStruct.parse(),
   }

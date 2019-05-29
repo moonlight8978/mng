@@ -1,27 +1,22 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { Layout } from '../../components'
 import { ZBox } from '../../components/atomics'
 
-import FormAddPayment from './form-add-payment'
+import FormAddCategory from './form-add-category'
+import { Layout } from '../../components'
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-between',
     flex: 1,
     padding: 12,
   },
-  keyboardView: {
-    flex: 1,
-  },
   input: {
-    marginBottom: 12,
+    marginBottom: 18,
   },
-  inputsGroup: {},
 })
 
-class AddPayment extends React.Component {
+class AddCategory extends React.PureComponent {
   componentDidMount() {
     this.props.navigation.setParams({
       submitForm: () => this.formRef.current.handleSubmit(),
@@ -31,16 +26,14 @@ class AddPayment extends React.Component {
   formRef = React.createRef()
 
   render() {
-    const targetDate = this.props.navigation.getParam('targetDate')
-
     return (
       <Layout>
         <ZBox style={styles.container}>
-          <FormAddPayment targetDate={targetDate} formRef={this.formRef} />
+          <FormAddCategory formRef={this.formRef} />
         </ZBox>
       </Layout>
     )
   }
 }
 
-export default AddPayment
+export default AddCategory
