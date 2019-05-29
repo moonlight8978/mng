@@ -12,10 +12,13 @@ class Form extends React.PureComponent {
   }
 
   handleSubmit = async () => {
+    await this.runValidations()
     if (_.isEmpty(this.state.errors)) {
       this.setState({ isSubmitting: true })
       await this.props.onSubmit(this.state.values)
       this.setState({ isSubmitting: false })
+    } else {
+      throw new Error('Validation failed')
     }
   }
 

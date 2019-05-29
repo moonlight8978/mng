@@ -14,7 +14,7 @@ function Payment({ payment, style }) {
   return (
     <ZBox style={[styles.container, style]} key={id}>
       <View style={styles.iconContainer}>
-        <MaterialIcons name={category.icon} size={30} style={styles.icon} />
+        <MaterialIcons name={category.iconName} size={30} style={styles.icon} />
       </View>
 
       <View style={styles.purposeContainer}>

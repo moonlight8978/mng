@@ -35,9 +35,9 @@ const initialValues = {
 const iconNameOptions = iconNames.map(name => ({ label: name, value: name }))
 
 class FormAddCategory extends React.Component {
-  handleSubmit = async values => {
+  handleSubmit = async category => {
     const { addCategory } = this.props
-    await addCategory(values)
+    await addCategory(category)
   }
 
   render() {
@@ -50,7 +50,7 @@ class FormAddCategory extends React.Component {
         onSubmit={this.handleSubmit}
         initialValues={initialValues}
       >
-        {({ values, handleChange, errors, touched }) => {
+        {({ values, handleChange, errors }) => {
           return (
             <React.Fragment>
               <View style={styles.input}>
@@ -78,7 +78,7 @@ class FormAddCategory extends React.Component {
                   onChangeText={handleChange('name')}
                   required
                 />
-                {touched.name && errors.name && (
+                {errors.name && (
                   <ZValidationMessage message={errors.name} type="error" />
                 )}
               </View>

@@ -7,7 +7,6 @@ import { ZText } from '../../components/atomics'
 import { styles } from './day.styles'
 import { withDb } from '../../db'
 import { DateList } from '../../components/calendar'
-import db from '../../db/db.sample'
 
 class Day extends React.PureComponent {
   goToDetailScreen = () => {
@@ -16,7 +15,7 @@ class Day extends React.PureComponent {
   }
 
   render() {
-    const { targetDate, dbSelectors } = this.props
+    const { targetDate, dbSelectors, db } = this.props
     const dateDb = dbSelectors.findDate(targetDate)(db)
     const totalSpentInMonth = dbSelectors.calculateMonthTotal(targetDate)(db)
     const numberOfDates = DateList.getNumberOfDates(targetDate)

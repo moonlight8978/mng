@@ -49,7 +49,8 @@ const findMonth = ({ month, year }) => db => {
 }
 
 const addPayment = ({ date, month, year }, payment) => db => {
-  const { total, payments } = findDate({ date, month, year })
+  const { total, payments } = findDate({ date, month, year })(db)
+
   return {
     ...db,
     calendar: {

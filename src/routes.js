@@ -6,6 +6,7 @@ import {
 } from 'react-navigation'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
+import Sentry from 'sentry-expo'
 
 import {
   HomeScreen,
@@ -26,8 +27,12 @@ const stackNavigationStyle = {
 }
 
 const submitFormFromHeader = navigation => async () => {
-  await navigation.getParam('submitForm')()
-  navigation.goBack()
+  try {
+    await navigation.getParam('submitForm')()
+    navigation.goBack()
+  } catch (error) {
+    Sentry.captureException(error)
+  }
 }
 
 const addIcon = <MaterialIcons name="add" size={28} color={palette.white} />
