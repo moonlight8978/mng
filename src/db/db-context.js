@@ -19,24 +19,34 @@ class DbProvider extends React.PureComponent {
 
   setDb = db => this.setState(state => ({ db: { ...state.db, ...db } }))
 
-  addPayment = (date, payment) => {
+  setStateAsync = updater => {
     return new Promise(resolve => {
-      this.setState(
-        state => ({
-          db: selectors.addPayment(date, {
-            ...payment,
-            id: this.generateUniqueId(),
-          })(state.db),
-        }),
-        async () => {
-          await this.persistState()
-          resolve()
-        }
-      )
+      this.setState(updater, async () => {
+        await this.persistState()
+        resolve()
+      })
     })
   }
 
+  addPayment = (date, payment) => {
+    return this.setStateAsync(state => ({
+      db: selectors.addPayment(date, {
+        ...payment,
+        id: this.generateUniqueId(),
+      })(state.db),
+    }))
+  }
+
   updatePayment = () => {}
+
+  addCategory = category => {
+    return this.setStateAsync(state => ({
+      db: selectors.addCategory({
+        ...category,
+        id: this.generateUniqueId(),
+      })(state.db),
+    }))
+  }
 
   tryPersistState = async () => {
     for (let triesCount = 1; triesCount <= 5; triesCount += 1) {
@@ -83,6 +93,7 @@ class DbProvider extends React.PureComponent {
           updatePayment: this.updatePayment,
           dbSelectors: selectors,
           addPayment: this.addPayment,
+          addCategory: this.addCategory,
         }}
       />
     )

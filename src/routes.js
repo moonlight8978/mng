@@ -16,6 +16,7 @@ import {
 } from './screens'
 import { palette } from './config'
 import { Drawer, HeaderRightIcon, DrawerToggler } from './components/navigation'
+import { DateStruct } from './resources'
 
 const stackNavigationStyle = {
   headerStyle: {
@@ -24,11 +25,64 @@ const stackNavigationStyle = {
   headerTintColor: palette.white,
 }
 
+const submitFormFromHeader = navigation => async () => {
+  await navigation.getParam('submitForm')()
+  navigation.goBack()
+}
+
+const addIcon = <MaterialIcons name="add" size={28} color={palette.white} />
+
+const checkIcon = (
+  <MaterialCommunityIcons name="check" size={28} color={palette.white} />
+)
+
 const PaymentsNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
-    AddPayment: AddPaymentScreen,
-    DatePayments: DatePaymentsScreen,
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: i18n.t('home.title'),
+        headerLeft: <DrawerToggler color={palette.white} />,
+        headerRight: (
+          <HeaderRightIcon
+            icon={addIcon}
+            onPress={() =>
+              navigation.navigate('AddPayment', {
+                targetDate: navigation.getParam('getSelectedDate')(),
+              })
+            }
+          />
+        ),
+      }),
+    },
+    AddPayment: {
+      screen: AddPaymentScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: DateStruct.toString(navigation.getParam('targetDate')),
+        headerRight: (
+          <HeaderRightIcon
+            icon={checkIcon}
+            onPress={submitFormFromHeader(navigation)}
+          />
+        ),
+      }),
+    },
+    DatePayments: {
+      screen: DatePaymentsScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: DateStruct.toString(navigation.getParam('targetDate')),
+        headerRight: (
+          <HeaderRightIcon
+            icon={addIcon}
+            onPress={() =>
+              navigation.navigate('AddPayment', {
+                targetDate: navigation.getParam('targetDate'),
+              })
+            }
+          />
+        ),
+      }),
+    },
   },
   {
     initialRouteName: 'Home',
@@ -45,7 +99,7 @@ const CategoriesNavigator = createStackNavigator(
         headerLeft: <DrawerToggler color={palette.white} />,
         headerRight: (
           <HeaderRightIcon
-            icon={<MaterialIcons name="add" size={28} color={palette.white} />}
+            icon={addIcon}
             onPress={() => navigation.navigate('AddCategory')}
           />
         ),
@@ -57,24 +111,15 @@ const CategoriesNavigator = createStackNavigator(
         title: i18n.t('category.new.screenTitle'),
         headerRight: (
           <HeaderRightIcon
-            icon={
-              <MaterialCommunityIcons
-                name="check"
-                size={28}
-                color={palette.white}
-              />
-            }
-            onPress={async () => {
-              await navigation.getParam('submitForm')()
-              navigation.goBack()
-            }}
+            icon={checkIcon}
+            onPress={submitFormFromHeader(navigation)}
           />
         ),
       }),
     },
   },
   {
-    initialRouteName: 'AddCategory',
+    initialRouteName: 'Categories',
     defaultNavigationOptions: stackNavigationStyle,
   }
 )
@@ -101,7 +146,7 @@ const AppNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Categories',
+    initialRouteName: 'Payments',
     contentOptions: {
       activeTintColor: palette.cyan,
       inactiveTintColor: palette.black,

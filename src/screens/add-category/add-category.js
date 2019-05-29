@@ -17,11 +17,19 @@ const styles = StyleSheet.create({
 })
 
 class AddCategory extends React.PureComponent {
+  componentDidMount() {
+    this.props.navigation.setParams({
+      submitForm: () => this.formRef.current.handleSubmit(),
+    })
+  }
+
+  formRef = React.createRef()
+
   render() {
     return (
       <Layout>
         <ZBox style={styles.container}>
-          <FormAddCategory />
+          <FormAddCategory formRef={this.formRef} />
         </ZBox>
       </Layout>
     )

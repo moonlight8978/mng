@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 })
 
 const schema = object().shape({
-  name: string().required('name is required'),
-  iconName: string().required('icon is required'),
+  name: string().required('Category name is required'),
+  iconName: string().required('Icon is required'),
 })
 
 const initialValues = {
@@ -36,8 +36,8 @@ const iconNameOptions = iconNames.map(name => ({ label: name, value: name }))
 
 class FormAddCategory extends React.Component {
   handleSubmit = async values => {
-    const { targetDate, addPayment } = this.props
-    await addPayment(targetDate, values)
+    const { addCategory } = this.props
+    await addCategory(values)
   }
 
   render() {

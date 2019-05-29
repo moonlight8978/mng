@@ -54,11 +54,13 @@ class Categories extends React.PureComponent {
               )
             }
 
-            return categories.map(category => (
+            return (
               <ZBox style={styles.container}>
-                <CategoryItem key={category.id} category={category} />
+                {categories.map(category => (
+                  <CategoryItem key={category.id} category={category} />
+                ))}
               </ZBox>
-            ))
+            )
           }}
         </DbConsumer>
       </Layout>
