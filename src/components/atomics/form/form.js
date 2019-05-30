@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+import i18n from 'i18n-js'
 
 import { yupToFormErrors, validateYupSchema } from './formik'
 
@@ -18,7 +19,7 @@ class Form extends React.PureComponent {
       await this.props.onSubmit(this.state.values)
       this.setState({ isSubmitting: false })
     } else {
-      throw new Error('Validation failed')
+      throw new Error(i18n.t('schema.common.errors.validationFailed'))
     }
   }
 

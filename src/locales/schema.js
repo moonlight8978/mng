@@ -35,6 +35,11 @@ const en = {
       },
     },
   },
+  common: {
+    errors: {
+      validationFailed: 'Validation failed',
+    },
+  },
 }
 
 const vi = {}
