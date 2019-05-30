@@ -6,7 +6,6 @@ import {
 } from 'react-navigation'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import i18n from 'i18n-js'
-import Sentry from 'sentry-expo'
 
 import {
   HomeScreen,
@@ -26,12 +25,16 @@ const stackNavigationStyle = {
   headerTintColor: palette.white,
 }
 
+const captureValidationError = error => {
+  // Sentry.captureException(error, { extra: { values: error.values } })
+}
+
 const submitFormFromHeader = navigation => async () => {
   try {
     await navigation.getParam('submitForm')()
     navigation.goBack()
   } catch (error) {
-    Sentry.captureException(error)
+    captureValidationError(error)
   }
 }
 
