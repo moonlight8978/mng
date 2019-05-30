@@ -4,6 +4,7 @@ import i18n from 'i18n-js'
 
 import { ZBox, ZText } from '../../components/atomics'
 import { NumberUtils } from '../../utils'
+import { currency } from '../../config'
 
 import { styles } from './total-spent.styles'
 
@@ -27,7 +28,7 @@ function TotalSpent({ total }) {
         ))}
 
         <ZText size="xxlarge" weight="semiBold" style={styles.price}>
-          VND
+          {currency.short}
         </ZText>
       </View>
     </ZBox>

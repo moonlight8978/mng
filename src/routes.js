@@ -46,7 +46,7 @@ const PaymentsNavigator = createStackNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: ({ navigation }) => ({
-        title: i18n.t('home.title'),
+        title: i18n.t('home.screenTitle'),
         headerLeft: <DrawerToggler color={palette.white} />,
         headerRight: (
           <HeaderRightIcon

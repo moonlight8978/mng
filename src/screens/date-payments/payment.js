@@ -3,9 +3,10 @@ import { View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import { ZText } from '../../components/atomics'
+import { currency } from '../../config'
+import { NumberUtils } from '../../utils'
 
 import { styles } from './payment.styles'
-import { NumberUtils } from '../../utils'
 
 function Payment({ payment, style }) {
   const { purpose, price, category } = payment
@@ -29,7 +30,7 @@ function Payment({ payment, style }) {
           {value}
           {unit}
         </ZText>
-        <ZText style={styles.priceUnit}>₫</ZText>
+        <ZText style={styles.priceUnit}>{currency.symbol}</ZText>
       </View>
     </View>
   )

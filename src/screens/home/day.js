@@ -1,12 +1,14 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import i18n from 'i18n-js'
 
 import { ZText } from '../../components/atomics'
 
 import { styles } from './day.styles'
 import { withDb } from '../../db'
 import { DateList } from '../../components/calendar'
+import { currency } from '../../config'
 
 class Day extends React.PureComponent {
   goToDetailScreen = () => {
@@ -35,43 +37,47 @@ class Day extends React.PureComponent {
           </ZText>
 
           <TouchableOpacity onPress={this.goToDetailScreen}>
-            <ZText>Show more</ZText>
+            <ZText>{i18n.t('home.toDetail')}</ZText>
           </TouchableOpacity>
         </View>
 
         <View style={styles.row}>
-          <ZText style={styles.label}>This day</ZText>
+          <ZText style={styles.label}>{i18n.t('home.dateSpentLabel')}</ZText>
           <View style={styles.value}>
             <ZText style={styles.valueText}>{dateDb.total}</ZText>
-            <ZText style={styles.valueText}>VND</ZText>
+            <ZText style={styles.valueText}>{currency.short}</ZText>
             <ZText style={styles.valueText}>{`(${datePercentage}%)`}</ZText>
           </View>
         </View>
 
         <View style={styles.row}>
-          <ZText style={styles.label}>This month</ZText>
+          <ZText style={styles.label}>{i18n.t('home.monthSpentLabel')}</ZText>
           <View style={styles.value}>
             <ZText style={styles.valueText}>{totalSpentInMonth}</ZText>
-            <ZText style={styles.valueText}>VND</ZText>
+            <ZText style={styles.valueText}>{currency.short}</ZText>
           </View>
         </View>
 
         <View style={styles.row}>
-          <ZText style={styles.label}>Average</ZText>
+          <ZText style={styles.label}>
+            {i18n.t('home.averageInMonthLabel')}
+          </ZText>
           <View style={styles.value}>
             <ZText style={styles.valueText}>{average}</ZText>
-            <ZText style={styles.valueText}>VND</ZText>
+            <ZText style={styles.valueText}>{currency.short}</ZText>
           </View>
         </View>
 
         <View style={styles.row}>
-          <ZText style={styles.label}>Change</ZText>
+          <ZText style={styles.label}>{i18n.t('home.compareToAverage')}</ZText>
           <View style={styles.value}>
             <ZText style={[styles.change, styles.valueText]}>
               {changeSign}
             </ZText>
             <ZText style={[styles.change, styles.valueText]}>{change}</ZText>
-            <ZText style={[styles.change, styles.valueText]}>VND</ZText>
+            <ZText style={[styles.change, styles.valueText]}>
+              {currency.short}
+            </ZText>
             <ZText style={[styles.change, styles.valueText]}>
               {`(${changePercentage}%)`}
             </ZText>
