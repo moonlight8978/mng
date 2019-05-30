@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import { object, string } from 'yup'
 
 import {
@@ -9,6 +10,7 @@ import {
   ZPicker,
 } from '../../components/atomics'
 import { withDb } from '../../db'
+import { palette } from '../../config'
 
 const styles = StyleSheet.create({
   input: {
@@ -20,23 +22,53 @@ const schema = object().shape({
   purpose: string().required('purpose is required'),
   price: string()
     .required('price is required')
-    .matches(/\d+/, { message: 'price is not invalid' }),
+    .matches(/\d+/, { message: 'price must be number' })
+    .test('is greater than 0', 'must be greater than 0', value => {
+      if (!value || !value.match(/\d+/)) {
+        return true
+      }
+
+      return parseInt(value, 10) > 0
+    }),
   category: string().required('category is required'),
 })
 
+const initialValues = categories => ({
+  category: categories[0] && categories[0].id,
+  purpose: '',
+  price: '0',
+})
+
 class FormAddPayment extends React.Component {
-  handleSubmit = async values => {
+  handleSubmit = async payment => {
     const { targetDate, addPayment } = this.props
-    await addPayment(targetDate, values)
+    await addPayment(targetDate, {
+      ...payment,
+      price: parseInt(payment.price, 10),
+    })
   }
 
   render() {
-    const { formRef } = this.props
+    const { formRef, db, dbSelectors } = this.props
+    const categories = dbSelectors.findCategories(db)
+    const categoryOptions = categories.map(category => ({
+      value: category.id,
+      label: category.name,
+    }))
 
     return (
       <View>
-        <ZForm schema={schema} ref={formRef} onSubmit={this.handleSubmit}>
-          {({ values, handleChange, errors, touched }) => {
+        <ZForm
+          schema={schema}
+          ref={formRef}
+          onSubmit={this.handleSubmit}
+          initialValues={initialValues(categories)}
+        >
+          {({ values, handleChange, errors }) => {
+            const selectedCategory = dbSelectors.findCategory(values.category)(
+              db
+            )
+
             return (
               <React.Fragment>
                 <View style={styles.input}>
@@ -44,11 +76,15 @@ class FormAddPayment extends React.Component {
                     label="Category"
                     value={values.category}
                     onValueChange={handleChange('category')}
-                    items={[
-                      { label: 'Shopping', value: 'shopping' },
-                      { label: 'Game', value: 'game' },
-                    ]}
+                    items={categoryOptions}
                     required
+                    icon={
+                      <MaterialIcons
+                        name={selectedCategory.iconName}
+                        size={24}
+                        color={palette.gray}
+                      />
+                    }
                   />
                 </View>
 
@@ -59,7 +95,7 @@ class FormAddPayment extends React.Component {
                     onChangeText={handleChange('purpose')}
                     required
                   />
-                  {touched.purpose && errors.purpose && (
+                  {errors.purpose && (
                     <ZValidationMessage message={errors.purpose} type="error" />
                   )}
                 </View>
@@ -71,7 +107,7 @@ class FormAddPayment extends React.Component {
                     onChangeText={handleChange('price')}
                     required
                   />
-                  {touched.price && errors.price && (
+                  {errors.price && (
                     <ZValidationMessage message={errors.price} type="error" />
                   )}
                 </View>

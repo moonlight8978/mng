@@ -30,12 +30,4 @@ export const styles = StyleSheet.create({
   priceUnit: {
     marginLeft: 6,
   },
-  divider: {
-    height: 1,
-    backgroundColor: palette.blueGray,
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
-  },
 })

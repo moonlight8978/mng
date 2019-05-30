@@ -12,13 +12,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
   },
-  keyboardView: {
-    flex: 1,
-  },
   input: {
     marginBottom: 12,
   },
-  inputsGroup: {},
 })
 
 class AddPayment extends React.Component {

@@ -49,7 +49,8 @@ const findMonth = ({ month, year }) => db => {
 }
 
 const addPayment = ({ date, month, year }, payment) => db => {
-  const { total, payments } = findDate({ date, month, year })
+  const { total, payments } = findDate({ date, month, year })(db)
+
   return {
     ...db,
     calendar: {
@@ -60,7 +61,7 @@ const addPayment = ({ date, month, year }, payment) => db => {
           ...(getIn(db.calendar, year, month) || {}),
           [date]: {
             total: total + payment.price,
-            payments: [...payments, payment.id],
+            payments: [payment.id, ...payments],
           },
         },
       },
@@ -90,8 +91,8 @@ const addCategory = category => db => {
   return {
     ...db,
     categories: {
-      ...db.categories,
       [category.id]: category,
+      ...db.categories,
     },
   }
 }
