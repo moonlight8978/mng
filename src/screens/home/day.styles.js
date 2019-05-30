@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { palette } from '../../config'
 
 export const styles = StyleSheet.create({
   titleRow: {
@@ -17,7 +18,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 6,
   },
   label: {
-    color: '#9E9E9E',
+    color: palette.gray,
     flex: 0.4,
   },
   value: {
@@ -26,7 +27,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   change: {
-    color: '#4caf50',
+    color: palette.green,
   },
   valueText: {
     marginLeft: 6,

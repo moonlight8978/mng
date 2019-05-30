@@ -5,10 +5,21 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
   },
+  fluid: {
+    flex: 1,
+  },
 })
 
-function Box({ style, children }) {
-  return <View style={[style, styles.container]}>{children}</View>
+function Box({ style, fluid, children }) {
+  return (
+    <View style={[style, styles.container, fluid ? styles.fluid : {}]}>
+      {children}
+    </View>
+  )
+}
+
+Box.defaultProps = {
+  fluid: false,
 }
 
 export default Box

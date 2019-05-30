@@ -1,12 +1,19 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet } from 'react-native'
+import i18n from 'i18n-js'
 
-import { Layout } from '../../components'
+import { Layout, List } from '../../components'
 import { DbConsumer } from '../../db'
 
 import TotalSpent from './total-spent'
 import Payment from './payment'
-import { styles } from './date-payments.styles'
+import { ZBox } from '../../components/atomics'
+
+const styles = StyleSheet.create({
+  list: {
+    flexGrow: 1,
+  },
+})
 
 class DatePayments extends React.PureComponent {
   render() {
@@ -24,11 +31,14 @@ class DatePayments extends React.PureComponent {
               <>
                 <TotalSpent total={total} />
 
-                <View style={styles.paymentList}>
-                  {payments.map((payment, index) => (
-                    <Payment key={payment.id} payment={payment} />
-                  ))}
-                </View>
+                <ZBox fluid>
+                  <List
+                    data={payments}
+                    renderItem={({ item }) => <Payment payment={item} />}
+                    emptyText={i18n.t('category.list.empty')}
+                    style={styles.list}
+                  />
+                </ZBox>
               </>
             )
           }}

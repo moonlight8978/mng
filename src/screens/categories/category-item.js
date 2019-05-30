@@ -7,8 +7,6 @@ import { palette } from '../../config'
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1,
-    borderColor: palette.blueGray,
     padding: 12,
   },
   inner: {
