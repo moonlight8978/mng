@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { object, string } from 'yup'
 import { MaterialIcons } from '@expo/vector-icons'
+import i18n from 'i18n-js'
 
 import {
   ZInput,
@@ -23,8 +24,10 @@ const styles = StyleSheet.create({
 })
 
 const schema = object().shape({
-  name: string().required('Category name is required'),
-  iconName: string().required('Icon is required'),
+  name: string().required(i18n.t('schema.category.name.errors.required')),
+  iconName: string().required(
+    i18n.t('schema.category.iconName.errors.required')
+  ),
 })
 
 const initialValues = {
@@ -55,7 +58,7 @@ class FormAddCategory extends React.Component {
             <React.Fragment>
               <View style={styles.input}>
                 <ZPicker
-                  label="Icon"
+                  label={i18n.t('schema.category.iconName.label')}
                   value={values.iconName}
                   onValueChange={handleChange('iconName')}
                   items={iconNameOptions}
@@ -69,11 +72,14 @@ class FormAddCategory extends React.Component {
                     />
                   }
                 />
+                {errors.iconName && (
+                  <ZValidationMessage message={errors.iconName} type="error" />
+                )}
               </View>
 
               <View style={styles.input}>
                 <ZInput
-                  label="Category name"
+                  label={i18n.t('schema.category.name.label')}
                   value={values.name}
                   onChangeText={handleChange('name')}
                   required

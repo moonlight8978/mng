@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { object, string } from 'yup'
+import i18n from 'i18n-js'
 
 import {
   ZInput,
@@ -19,18 +20,26 @@ const styles = StyleSheet.create({
 })
 
 const schema = object().shape({
-  purpose: string().required('purpose is required'),
+  purpose: string().required(i18n.t('schema.payment.purpose.errors.required')),
   price: string()
-    .required('price is required')
-    .matches(/\d+/, { message: 'price must be number' })
-    .test('is greater than 0', 'must be greater than 0', value => {
-      if (!value || !value.match(/\d+/)) {
-        return true
-      }
+    .required(i18n.t('schema.payment.price.errors.required'))
+    .matches(/\d+/, {
+      message: i18n.t('schema.payment.price.errors.notNumber'),
+    })
+    .test(
+      'is greater than 0',
+      i18n.t('schema.payment.price.errors.greaterThanZero'),
+      value => {
+        if (!value || !value.match(/\d+/)) {
+          return true
+        }
 
-      return parseInt(value, 10) > 0
-    }),
-  category: string().required('category is required'),
+        return parseInt(value, 10) > 0
+      }
+    ),
+  category: string().required(
+    i18n.t('schema.payment.category.errors.required')
+  ),
 })
 
 const initialValues = categories => ({
@@ -73,7 +82,7 @@ class FormAddPayment extends React.Component {
               <React.Fragment>
                 <View style={styles.input}>
                   <ZPicker
-                    label="Category"
+                    label={i18n.t('schema.payment.category.label')}
                     value={values.category}
                     onValueChange={handleChange('category')}
                     items={categoryOptions}
@@ -90,7 +99,7 @@ class FormAddPayment extends React.Component {
 
                 <View style={styles.input}>
                   <ZInput
-                    label="Purpose"
+                    label={i18n.t('schema.payment.purpose.label')}
                     value={values.purpose}
                     onChangeText={handleChange('purpose')}
                     required
@@ -102,7 +111,7 @@ class FormAddPayment extends React.Component {
 
                 <View>
                   <ZInput
-                    label="Price"
+                    label={i18n.t('schema.payment.price.label')}
                     value={values.price}
                     onChangeText={handleChange('price')}
                     required
