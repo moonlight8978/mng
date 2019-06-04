@@ -8,6 +8,7 @@ const en = {
     title: 'Exit app',
     prompt: 'Are you sure to exit the application?',
   },
+  idLabel: 'Your ID:',
 }
 
 const vi = {
