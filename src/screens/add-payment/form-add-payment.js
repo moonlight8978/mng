@@ -53,7 +53,7 @@ class FormAddPayment extends React.Component {
     const { targetDate, addPayment } = this.props
     await addPayment(targetDate, {
       ...payment,
-      price: parseInt(payment.price, 10),
+      price: parseInt(payment.price, 10) * 1000,
     })
   }
 

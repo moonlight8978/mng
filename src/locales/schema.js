@@ -13,7 +13,7 @@ const en = {
       },
     },
     price: {
-      label: 'Price',
+      label: 'Price (* 1000)',
       errors: {
         number: 'Price must be a number',
         required: 'Price cannot be blank',

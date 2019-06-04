@@ -82,10 +82,6 @@ const exitApp = () => {
   )
 }
 
-const copyToClipboard = () => {
-  Clipboard.setString(Constants.installationId)
-}
-
 const DrawerItem = ({ onPress, children }) => (
   <TouchableNativeFeedback
     onPress={onPress}
@@ -96,28 +92,61 @@ const DrawerItem = ({ onPress, children }) => (
   </TouchableNativeFeedback>
 )
 
-const UserInfo = ({ style }) => (
-  <View style={style}>
-    <Text style={styles.userInfoText}>{i18n.t('drawer.idLabel')}</Text>
+class UserInfo extends React.PureComponent {
+  state = {
+    isCopied: false,
+  }
 
-    <View style={styles.idContainer}>
-      <Text
-        style={[styles.userInfoText, styles.installationId]}
-        numberOfLines={1}
-      >
-        {Constants.installationId}
-      </Text>
+  componentWillUnmount() {
+    this.clearTimeout()
+  }
 
-      <TouchableOpacity onPress={copyToClipboard}>
-        <MaterialCommunityIcons
-          name="clipboard-outline"
-          size={24}
-          color={palette.white}
-        />
-      </TouchableOpacity>
-    </View>
-  </View>
-)
+  handleCopy = () => {
+    Clipboard.setString(this.installationId)
+    this.setState({ isCopied: true })
+    this.clearTimeout()
+    this.timeout = setTimeout(() => this.setState({ isCopied: false }), 5000)
+  }
+
+  timeout = null
+
+  installationId = Constants.installationId
+
+  clearTimeout = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
+  }
+
+  render() {
+    const { style } = this.props
+    const { isCopied } = this.state
+    const iconName = isCopied ? 'clipboard-check-outline' : 'clipboard-outline'
+
+    return (
+      <View style={style}>
+        <Text style={styles.userInfoText}>{i18n.t('drawer.idLabel')}</Text>
+
+        <View style={styles.idContainer}>
+          <Text
+            style={[styles.userInfoText, styles.installationId]}
+            numberOfLines={1}
+          >
+            {this.installationId}
+          </Text>
+
+          <TouchableOpacity onPress={this.handleCopy}>
+            <MaterialCommunityIcons
+              name={iconName}
+              size={24}
+              color={palette.white}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+}
 
 const Drawer = props => (
   <ScrollView contentContainerStyle={styles.container}>
