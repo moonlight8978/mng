@@ -9,6 +9,7 @@ import {
   ZForm,
   ZValidationMessage,
   ZPicker,
+  ZText,
 } from '../../components/atomics'
 import { withDb } from '../../db'
 import { palette } from '../../config'
@@ -77,6 +78,10 @@ class FormAddPayment extends React.Component {
             const selectedCategory = dbSelectors.findCategory(values.category)(
               db
             )
+
+            if (!selectedCategory) {
+              return <ZText>Create a category first!</ZText>
+            }
 
             return (
               <React.Fragment>

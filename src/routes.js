@@ -13,6 +13,7 @@ import {
   CategoriesScreen,
   AddCategoryScreen,
   DatePaymentsScreen,
+  SyncScreen,
 } from './screens'
 import { palette } from './config'
 import { Drawer, HeaderRightIcon, DrawerToggler } from './components/navigation'
@@ -149,6 +150,26 @@ const AppNavigator = createDrawerNavigator(
         drawerLabel: i18n.t('drawer.category'),
         drawerIcon: ({ tintColor }) => (
           <MaterialIcons color={tintColor} name="list" size={24} />
+        ),
+      },
+    },
+    Sync: {
+      screen: createStackNavigator(
+        {
+          Export: {
+            screen: SyncScreen,
+            navigationOptions: {
+              title: i18n.t('sync.screenTitle'),
+              headerLeft: <DrawerToggler color={palette.white} />,
+            },
+          },
+        },
+        { defaultNavigationOptions: stackNavigationStyle }
+      ),
+      navigationOptions: {
+        drawerLabel: i18n.t('drawer.sync'),
+        drawerIcon: ({ tintColor }) => (
+          <MaterialIcons color={tintColor} name="import-export" size={24} />
         ),
       },
     },

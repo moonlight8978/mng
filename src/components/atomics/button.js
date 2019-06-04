@@ -4,7 +4,6 @@ import { View, TouchableNativeFeedback, StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container: {
     height: 40,
-    width: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },

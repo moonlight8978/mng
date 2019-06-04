@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     backgroundColor: palette.transparent,
+    width: 40,
   },
 })
 

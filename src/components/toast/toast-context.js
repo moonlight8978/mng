@@ -25,8 +25,8 @@ class ToastProvider extends React.PureComponent {
 
   timeout = null
 
-  push = ({ message, type = 'error' }) => {
-    this.setState(state => ({ visibleToast: { message, type } }))
+  push = ({ message, position = 'top', type = 'error' }) => {
+    this.setState(state => ({ visibleToast: { message, type, position } }))
     this.clearTimeout()
     this.timeout = setTimeout(() => this.setState({ visibleToast: null }), 3000)
   }

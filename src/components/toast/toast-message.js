@@ -11,11 +11,16 @@ const styles = StyleSheet.create({
     backgroundColor: palette.transparent,
     alignItems: 'center',
     position: 'absolute',
-    top: Header.HEIGHT + Constants.statusBarHeight + 16,
     left: 0,
     right: 0,
     zIndex: 999,
     elevation: 9,
+  },
+  topToast: {
+    top: Header.HEIGHT + Constants.statusBarHeight + 16,
+  },
+  bottomToast: {
+    bottom: 24,
   },
   inner: {
     paddingTop: 6,
@@ -47,13 +52,15 @@ const styles = StyleSheet.create({
 })
 
 function ToastMessage({ toast, onPress }) {
-  const { message, type } = toast
+  const { message, type, position } = toast
   const background =
     type === 'error' ? styles.errorBackground : styles.successBackground
   const iconName = type === 'error' ? 'close' : 'check'
+  const positionStyle =
+    position === 'top' ? styles.topToast : styles.bottomToast
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, positionStyle]}>
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.inner, background]}>
           <AntDesign name={iconName} size={20} style={styles.icon} />
