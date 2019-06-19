@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 import i18n from 'i18n-js'
 
 import { palette } from '../../config'
