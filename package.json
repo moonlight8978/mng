@@ -10,31 +10,31 @@
     "eslint": "eslint ."
   },
   "dependencies": {
-    "@expo/vector-icons": "^10.0.1",
-    "expo": "^32.0.6",
-    "firebase": "^6.1.0",
-    "i18n-js": "^3.2.2",
+    "@expo/vector-icons": "^10.0.2",
+    "expo": "^33.0.6",
+    "firebase": "^6.2.0",
+    "i18n-js": "^3.3.0",
     "lodash": "^4.17.11",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-navigation": "^3.11.0",
-    "sentry-expo": "^1.12.0",
+    "sentry-expo": "^1.13.0",
     "uuid": "^3.3.2",
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "babel-preset-expo": "^5.1.1",
+    "babel-eslint": "^10.0.2",
+    "babel-preset-expo": "^5.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.2",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
     "jest": "^24.8.0",
-    "jest-expo": "^32.0.1",
-    "prettier": "^1.17.1"
+    "jest-expo": "^33.0.0",
+    "prettier": "^1.18.2"
   },
   "private": true
 }
