@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 import { MaterialIcons } from '@expo/vector-icons'
 import Sentry from 'sentry-expo'
 

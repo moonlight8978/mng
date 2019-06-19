@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, View, AsyncStorage } from 'react-native'
-import { Font, SplashScreen, Asset } from 'expo'
+import { SplashScreen } from 'expo'
+import * as Font from 'expo-font'
+import { Asset } from 'expo-asset'
 import Sentry from 'sentry-expo'
 import {
   FontAwesome,

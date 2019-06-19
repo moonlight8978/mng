@@ -12,6 +12,10 @@
   "dependencies": {
     "@expo/vector-icons": "^10.0.2",
     "expo": "^33.0.6",
+    "expo-asset": "^5.0.1",
+    "expo-constants": "~5.0.1",
+    "expo-font": "~5.0.1",
+    "expo-localization": "~5.0.1",
     "firebase": "^6.2.0",
     "i18n-js": "^3.3.0",
     "lodash": "^4.17.11",

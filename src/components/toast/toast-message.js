@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { Header } from 'react-navigation'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 import { AntDesign } from '@expo/vector-icons'
 
 import { palette } from '../../config'
