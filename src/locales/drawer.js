@@ -2,6 +2,7 @@ const en = {
   category: 'Category',
   payment: 'Payment',
   closeApp: 'Close app',
+  sync: 'Synchronizing',
   closeConfirm: {
     ok: 'Yes',
     cancel: 'No',

@@ -7,6 +7,7 @@ import drawer from './drawer'
 import home from './home'
 import schema from './schema'
 import datePayments from './date-payments'
+import sync from './sync'
 
 const en = {
   home: home.en,
@@ -15,6 +16,7 @@ const en = {
   category: category.en,
   drawer: drawer.en,
   schema: schema.en,
+  sync: sync.en,
 }
 
 const vi = {
@@ -24,6 +26,7 @@ const vi = {
   category: category.vi,
   drawer: drawer.vi,
   schema: schema.vi,
+  sync: sync.vi,
 }
 
 i18n.fallbacks = true

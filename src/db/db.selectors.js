@@ -97,6 +97,12 @@ const addCategory = category => db => {
   }
 }
 
+const getExportableData = db => {
+  const data = JSON.stringify(db)
+
+  return { data, size: data.length }
+}
+
 export default {
   findCategory,
   findPayment,
@@ -106,4 +112,5 @@ export default {
   calculateMonthTotal,
   findCategories,
   addCategory,
+  getExportableData,
 }
