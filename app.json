@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mn-mng",
+    "name": "MNG",
     "slug": "mng",
     "privacy": "public",
     "sdkVersion": "33.0.0",
@@ -18,7 +18,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.moonlight8978.mng"
+    },
+    "android": {
+      "package": "com.moonlight8978.mng"
     }
   },
   "hooks": {
