@@ -61,7 +61,7 @@ const addPayment = ({ date, month, year }, payment) => db => {
           ...(getIn(db.calendar, year, month) || {}),
           [date]: {
             total: total + payment.price,
-            payments: [payment.id, ...payments],
+            payments: [payment.id, ...payments.map(p => p.id)],
           },
         },
       },
