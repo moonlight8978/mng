@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import Constants from 'expo-constants'
 import { MaterialIcons } from '@expo/vector-icons'
 import Sentry from 'sentry-expo'
+import i18n from 'i18n-js'
 
 import { Layout } from '../../components'
 import { ZBox, ZText, ZButton } from '../../components/atomics'
@@ -90,18 +91,18 @@ class Sync extends React.PureComponent {
               return (
                 <>
                   <ToastedSyncButton
-                    text="Backup"
+                    text={i18n.t('sync.backup.button')}
                     icon="cloud-upload"
-                    successMessage="Uploaded successfully."
-                    failureMessage="Failed to upload."
+                    successMessage={i18n.t('sync.backup.successMessage')}
+                    failureMessage={i18n.t('sync.backup.failureMessage')}
                     onPress={() => this.exportDb(exporting.data)}
                   />
 
                   <ToastedSyncButton
-                    text="Restore"
+                    text={i18n.t('sync.restore.button')}
                     icon="cloud-download"
-                    successMessage="Downloaded successfully."
-                    failureMessage="Failed to download."
+                    successMessage={i18n.t('sync.restore.successMessage')}
+                    failureMessage={i18n.t('sync.restore.failureMessage')}
                     onPress={() => this.restoreDb(setDb)}
                   />
                 </>
